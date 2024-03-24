@@ -1,0 +1,37 @@
+{
+  "debug": false,
+  "collections": {
+    "example": [
+      {
+        "type": "COMMAND_CONSOLE",
+        "weight": 10,
+        "commands": [
+          "give %player% diamond 1"
+        ]
+      },
+      {
+        "type": "COMMAND_CONSOLE",
+        "weight": 5,
+        "commands": [
+          "give %player% emerald 1"
+        ]
+      }
+    ],
+    "example2": [
+      {
+        "type": "COMMAND_CONSOLE",
+        "weight": 10,
+        "commands": [
+          "give %player% dirt 1"
+        ]
+      },
+      {
+        "type": "COMMAND_CONSOLE",
+        "weight": 10,
+        "commands": [
+          "give %player% grass_block 1"
+        ]
+      }
+    ]
+  }
+}
