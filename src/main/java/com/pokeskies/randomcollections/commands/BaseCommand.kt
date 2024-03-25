@@ -1,6 +1,7 @@
 package com.pokeskies.randomcollections.commands
 
 import com.mojang.brigadier.CommandDispatcher
+import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.tree.LiteralCommandNode
@@ -30,6 +31,16 @@ class BaseCommand {
                         SharedSuggestionProvider.suggest(RandomCollections.INSTANCE.collections.keys.stream(), builder)
                     }
                     .then(Commands.argument("players", EntityArgument.players())
+                        .then(Commands.argument("amount", IntegerArgumentType.integer(1))
+                            .executes { ctx ->
+                                execute(
+                                    ctx,
+                                    StringArgumentType.getString(ctx, "collection"),
+                                    EntityArgument.getPlayers(ctx, "players"),
+                                    IntegerArgumentType.getInteger(ctx, "amount")
+                                )
+                            }
+                        )
                         .executes { ctx ->
                             execute(
                                 ctx,
@@ -65,7 +76,8 @@ class BaseCommand {
         fun execute(
             ctx: CommandContext<CommandSourceStack>,
             collection: String,
-            players: Collection<ServerPlayer>
+            players: Collection<ServerPlayer>,
+            amount: Int = 1
         ): Int {
             val rc = RandomCollections.INSTANCE.collections[collection]
             if (rc == null) {
@@ -75,11 +87,13 @@ class BaseCommand {
             }
 
             players.forEach { player ->
-                val reward = rc.next()
-                reward.giveReward(player)
+                for (i in 0 until amount) {
+                    val reward = rc.next()
+                    reward.giveReward(player)
+                }
             }
 
-            ctx.source.sendSystemMessage(Component.literal("Gave rewards to ${players.size} players from collection '$collection'")
+            ctx.source.sendSystemMessage(Component.literal("Gave $amount rewards to ${players.size} players from collection '$collection'")
                 .withStyle { it.withColor(ChatFormatting.GREEN) })
 
             return 1
