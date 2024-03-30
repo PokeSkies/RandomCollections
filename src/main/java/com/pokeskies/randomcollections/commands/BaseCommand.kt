@@ -25,7 +25,7 @@ class BaseCommand {
     fun register(dispatcher: CommandDispatcher<CommandSourceStack>) {
         val rootCommands: List<LiteralCommandNode<CommandSourceStack>> = aliases.map {
             Commands.literal(it)
-                .requires(Permissions.require("randomcollections.command.base", 4))
+                .requires(Permissions.require("randomcollections.command.base", 2))
                 .then(Commands.argument("collection", StringArgumentType.string())
                     .suggests { _, builder ->
                         SharedSuggestionProvider.suggest(RandomCollections.INSTANCE.collections.keys.stream(), builder)
@@ -49,7 +49,6 @@ class BaseCommand {
                             )
                         }
                     )
-                    .requires { ctx -> ctx.isPlayer}
                     .executes { ctx ->
                         execute(
                             ctx,
