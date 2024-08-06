@@ -21,7 +21,7 @@ class ItemConfig(
     fun getItemStack(player: ServerPlayer): ItemStack {
         if (item.isEmpty()) return ItemStack(Items.AIR, amount)
 
-        val itemType = BuiltInRegistries.ITEM.get(ResourceLocation(item))
+        val itemType = BuiltInRegistries.ITEM.get(ResourceLocation.parse(item))
 
         if (BuiltInRegistries.ITEM.defaultKey == BuiltInRegistries.ITEM.getKey(itemType)) {
             Utils.printError("Error while getting Item, defaulting to AIR: $item")

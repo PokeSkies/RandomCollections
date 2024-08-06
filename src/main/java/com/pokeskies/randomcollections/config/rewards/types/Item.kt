@@ -1,6 +1,5 @@
 package com.pokeskies.randomcollections.config.rewards.types
 
-import com.pokeskies.randomcollections.RandomCollections
 import com.pokeskies.randomcollections.config.ItemConfig
 import com.pokeskies.randomcollections.config.rewards.Reward
 import com.pokeskies.randomcollections.config.rewards.RewardType
