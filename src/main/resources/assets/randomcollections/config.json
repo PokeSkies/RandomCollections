@@ -26,11 +26,14 @@
         ]
       },
       {
-        "type": "COMMAND_CONSOLE",
+        "type": "ITEM",
         "weight": 10,
-        "commands": [
-          "give %player% grass_block 1"
-        ]
+        "item": {
+          "item": "minecraft:diamond_sword",
+          "amount": 1,
+          "name": "<blue><b>Example Sword",
+            "lore": ["<gray><italic>Example lore!"]
+        }
       }
     ]
   }

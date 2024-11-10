@@ -17,8 +17,13 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.ServerSt
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.ServerStopped
 import net.fabricmc.loader.api.FabricLoader
 import net.kyori.adventure.platform.fabric.FabricServerAudiences
+import net.minecraft.core.component.DataComponentMap
+import net.minecraft.core.component.DataComponentPatch
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtOps
+import net.minecraft.nbt.Tag
+import net.minecraft.resources.RegistryOps
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.MinecraftServer
 import net.minecraft.sounds.SoundEvent
@@ -43,10 +48,13 @@ class RandomCollections : ModInitializer {
 
     lateinit var adventure: FabricServerAudiences
     lateinit var server: MinecraftServer
+    lateinit var nbtOpts: RegistryOps<Tag>
 
     var gson: Gson = GsonBuilder().disableHtmlEscaping()
         .registerTypeAdapter(Reward::class.java, RewardType.RewardTypeAdaptor())
         .registerTypeHierarchyAdapter(CompoundTag::class.java, Utils.CodecSerializer(CompoundTag.CODEC))
+        .registerTypeHierarchyAdapter(DataComponentMap::class.java, Utils.CodecSerializer(DataComponentMap.CODEC))
+        .registerTypeHierarchyAdapter(DataComponentPatch::class.java, Utils.CodecSerializer(DataComponentPatch.CODEC))
         .create()
 
     var gsonPretty: Gson = gson.newBuilder().setPrettyPrinting().create()
@@ -67,6 +75,7 @@ class RandomCollections : ModInitializer {
                 server
             )
             this.server = server
+            this.nbtOpts = server.registryAccess().createSerializationContext(NbtOps.INSTANCE)
         })
         ServerLifecycleEvents.SERVER_STARTED.register(ServerLifecycleEvents.ServerStarted { _ ->
             if (FabricLoader.getInstance().isModLoaded("cobblemon")) {
