@@ -45,8 +45,21 @@ internal class FlexibleListAdaptorFactory<E> private constructor() : TypeAdapter
                 this.elementTypeAdapter = elementTypeAdapter
             }
 
-            override fun write(out: JsonWriter?, list: List<E>?) {
-                throw UnsupportedOperationException()
+            override fun write(out: JsonWriter, list: List<E>?) {
+                if (list == null) {
+                    out.nullValue()
+                    return
+                }
+
+                if (list.size == 1) {
+                    elementTypeAdapter.write(out, list[0])
+                } else {
+                    out.beginArray()
+                    for (element in list) {
+                        elementTypeAdapter.write(out, element)
+                    }
+                    out.endArray()
+                }
             }
 
             @Throws(IOException::class)

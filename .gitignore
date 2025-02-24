@@ -21,6 +21,7 @@ build
 # other
 eclipse
 run
+.kotlin
 
 # Generated files
 */generated/resources/*
