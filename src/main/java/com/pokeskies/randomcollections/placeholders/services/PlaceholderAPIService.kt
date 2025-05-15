@@ -1,7 +1,7 @@
 package com.pokeskies.randomcollections.placeholders.services
 
-import com.pokeskies.randomcollections.utils.Utils
 import com.pokeskies.randomcollections.placeholders.IPlaceholderService
+import com.pokeskies.randomcollections.utils.Utils
 import eu.pb4.placeholders.api.PlaceholderContext
 import eu.pb4.placeholders.api.Placeholders
 import net.minecraft.network.chat.Component

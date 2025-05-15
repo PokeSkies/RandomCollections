@@ -8,8 +8,6 @@ import com.mojang.brigadier.tree.LiteralCommandNode
 import com.pokeskies.randomcollections.RandomCollections
 import com.pokeskies.randomcollections.commands.subcommands.DebugCommand
 import com.pokeskies.randomcollections.commands.subcommands.ReloadCommand
-import com.pokeskies.randomcollections.config.ConfigManager
-import com.pokeskies.randomcollections.utils.RandomCollection
 import me.lucko.fabric.api.permissions.v0.Permissions
 import net.minecraft.ChatFormatting
 import net.minecraft.commands.CommandSourceStack
@@ -70,7 +68,7 @@ class BaseCommand {
             dispatcher.root.addChild(root)
         }
     }
-    
+
     companion object {
         fun execute(
             ctx: CommandContext<CommandSourceStack>,

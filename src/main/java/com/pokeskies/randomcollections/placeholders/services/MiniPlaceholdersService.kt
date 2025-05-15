@@ -1,8 +1,8 @@
 package com.pokeskies.randomcollections.placeholders.services
 
 import com.pokeskies.randomcollections.RandomCollections
-import com.pokeskies.randomcollections.utils.Utils
 import com.pokeskies.randomcollections.placeholders.IPlaceholderService
+import com.pokeskies.randomcollections.utils.Utils
 import io.github.miniplaceholders.api.MiniPlaceholders
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver

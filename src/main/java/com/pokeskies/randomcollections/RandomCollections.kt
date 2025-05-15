@@ -14,19 +14,15 @@ import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.ServerStarting
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.ServerStopped
 import net.fabricmc.loader.api.FabricLoader
 import net.kyori.adventure.platform.fabric.FabricServerAudiences
 import net.minecraft.core.component.DataComponentMap
 import net.minecraft.core.component.DataComponentPatch
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
 import net.minecraft.nbt.Tag
 import net.minecraft.resources.RegistryOps
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.MinecraftServer
-import net.minecraft.sounds.SoundEvent
 import org.apache.logging.log4j.LogManager
 import java.io.File
 import java.io.FileReader
@@ -36,13 +32,16 @@ import java.nio.file.Files
 class RandomCollections : ModInitializer {
     companion object {
         lateinit var INSTANCE: RandomCollections
-        val LOGGER = LogManager.getLogger("randomcollections")
+
+        const val MOD_ID = "randomcollections"
+        const val MOD_NAME = "RandomCollections"
+
+        val LOGGER = LogManager.getLogger(MOD_ID)
 
         var COBBLEMON_PRESENT: Boolean = false
     }
 
     lateinit var configDir: File
-    lateinit var configManager: ConfigManager
 
     lateinit var placeholderManager: PlaceholderManager
 
@@ -65,7 +64,7 @@ class RandomCollections : ModInitializer {
         INSTANCE = this
 
         this.configDir = File(FabricLoader.getInstance().configDirectory, "randomcollections")
-        this.configManager = ConfigManager(configDir)
+        ConfigManager.load()
         loadCollections()
 
         this.placeholderManager = PlaceholderManager()
@@ -90,7 +89,7 @@ class RandomCollections : ModInitializer {
     }
 
     fun reload() {
-        this.configManager.reload()
+        ConfigManager.load()
         loadCollections()
     }
 
