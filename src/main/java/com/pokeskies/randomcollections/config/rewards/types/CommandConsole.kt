@@ -16,8 +16,10 @@ class CommandConsole(
 ) : Reward(type, weight) {
     override fun giveReward(player: ServerPlayer) {
         RandomCollections.INSTANCE.server.let { server ->
-            commands.forEach { command ->
-                server.commands.performPrefixedCommand(server.createCommandSourceStack(), Utils.parsePlaceholders(player, command))
+            val parsed = commands.map { Utils.parsePlaceholders(player, it) }
+            Utils.printDebug("[REWARD - ${type.name}] Player(${player.gameProfile.name}), Commands($parsed)")
+            parsed.forEach { command ->
+                server.commands.performPrefixedCommand(server.createCommandSourceStack(), command)
             }
         }
     }

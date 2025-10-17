@@ -6,13 +6,6 @@
       "commands": [
         "give %player% diamond 1"
       ]
-    },
-    {
-      "type": "COMMAND_CONSOLE",
-      "weight": 5,
-      "commands": [
-        "give %player% emerald 1"
-      ]
     }
   ]
 }

@@ -32,6 +32,7 @@ repositories {
     }
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://maven.impactdev.net/repository/development/")
+    maven("https://repo.lucko.me")
 }
 
 loom {
@@ -65,7 +66,9 @@ dependencies {
     modImplementation(include("net.kyori:adventure-platform-fabric:5.14.2")!!)
 
     // PermissionsAPI
-    modImplementation("me.lucko:fabric-permissions-api:0.3.1")
+    modImplementation("me.lucko:fabric-permissions-api:0.3.1")?.let {
+        include(it)
+    }
 
     // Placeholders
     modImplementation("eu.pb4:placeholder-api:2.4.1+1.21")
